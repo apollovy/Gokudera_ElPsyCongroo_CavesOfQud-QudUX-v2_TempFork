@@ -5,16 +5,14 @@ namespace XRL.World.Parts
     [Serializable]
     public class QudUX_CommandListener : IPart
     {
-        public static readonly string CmdOpenSpriteMenu = "QudUX_OpenSpriteMenu";
         public static readonly string CmdOpenAutogetMenu = "QudUX_OpenAutogetMenu";
         public static readonly string cmdOpenGameStatsMenu = "QudUX_OpenGameStatsMenu";
 
         public override void Register(GameObject Object)
         {
-            Object.RegisterPartEvent(this, CmdOpenSpriteMenu);
             Object.RegisterPartEvent(this, CmdOpenAutogetMenu);
             Object.RegisterPartEvent(this, cmdOpenGameStatsMenu);
-            
+
             base.Register(Object);
         }
 
@@ -22,13 +20,9 @@ namespace XRL.World.Parts
 		{
 			return true;
 		}
-		
+
         public override bool FireEvent(Event E)
         {
-            if (E.ID == CmdOpenSpriteMenu)
-            {
-                QudUX.Wishes.SpriteMenu.Wish();
-            }
             if (E.ID == CmdOpenAutogetMenu)
             {
                 QudUX.Wishes.AutopickupMenu.Wish();
@@ -41,3 +35,11 @@ namespace XRL.World.Parts
         }
     }
 }
+
+
+// === QudUX 2.0 Errors ===
+// <...>\Mods\QudUX_old\Parts and Effects\QudUX_CommandListener.cs(30,17): error CS0234: The type or namespace name 'SpriteMenu' does not exist in the namespace 'QudUX.Wishes' (are you missing an assembly reference?)
+// <...>\Mods\QudUX_old\Concepts\Constants.cs(99,50): error CS0103: The name 'AbilityManagerExtender' does not exist in the current context
+// <...>\Mods\QudUX_old\Concepts\Constants.cs(217,72): error CS0117: 'Events' does not contain a definition for 'EmbarkEvent'
+// == Warnings ==
+// None

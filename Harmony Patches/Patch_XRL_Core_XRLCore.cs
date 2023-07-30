@@ -23,7 +23,6 @@ namespace QudUX.HarmonyPatches
             {
                 if (!patched && Sequence.IsMatchComplete(instruction))
                 {
-                    yield return new CodeInstruction(OpCodes.Call, Events_EmbarkEvent);
                     yield return new CodeInstruction(OpCodes.Call, Events_OnLoadAlwaysEvent);
                     patched = true;
                 }

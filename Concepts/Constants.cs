@@ -94,10 +94,6 @@ namespace QudUX.Concepts
             {
                 get { return typeof(List<GameObjectBlueprint>).GetMethod("get_Count"); }
             }
-            public static MethodInfo AbilityManagerExtender_UpdateAbilityText
-            {
-                get { return GetMethodInfo(() => AbilityManagerExtender.UpdateAbilityText(default(AbilityNode), default(TextBlock))); }
-            }
             public static MethodInfo Campfire_GetValidCookingIngredients
             {
                 get { return GetMethodInfo(() => Campfire.GetValidCookingIngredients()); } //variant with no parameters
@@ -212,10 +208,6 @@ namespace QudUX.Concepts
             //{
             //    get { return GetMethodInfo(() => CreateCharacterExtender.PickCharacterTile(default(CharacterTemplate))); }
             //}
-            public static MethodInfo Events_EmbarkEvent
-            {
-                get { return GetMethodInfo(() => QudUX.Concepts.Events.EmbarkEvent()); }
-            }
             public static MethodInfo Events_SaveLoadEvent
             {
                 get { return GetMethodInfo(() => QudUX.Concepts.Events.SaveLoadEvent()); }

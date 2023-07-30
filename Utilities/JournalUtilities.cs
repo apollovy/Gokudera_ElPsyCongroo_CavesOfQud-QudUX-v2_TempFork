@@ -1,30 +1,99 @@
 using System;
 using System.IO;
 using XRL.Core;
-using XRL.Rules;
 using XRL.Names;
+using XRL.Rules;
+
 using static QudUX.Utilities.Logger;
 
 namespace QudUX.Utilities
 {
     public class JournalUtilities
     {
-        private readonly static string[] NamePrefixes = new string[]
-        {
-            "U", "Ma", "Ka", "Mi", "Shu", "Ha", "Ala", "A", "Da", "Bi", "Ta", "Te", "Tu",
-            "Sa", "Du", "Na", "She", "Sha", "Eka", "Ki", "I", "Su", "Qa"
-        };
-        private readonly static string[] NameInfixes = new string[]
-        {
-            "rche", "ga", "rva", "mri", "azo", "arra", "ili", "ba", "gga", "rqa", "rqu",
-            "by", "rsi", "ra", "ne"
-        };
-        private readonly static string[] NamePostfixes = new string[]
-        {
-            "ppur", "ppar", "ppir", "sh", "d", "mish", "kh", "mur", "bal", "mas", "zor",
-            "mor", "nip", "lep", "pad", "kesh", "war", "tum", "mmu", "mrod", "shur",
-            "nna", "kish", "ruk", "r", "ppa", "wan", "shan", "tara", "vah", "vuh", "lil"
-        };
+        private static readonly string[]
+            NamePrefixes =
+                new string[] {
+                    "U",
+                    "Ma",
+                    "Ka",
+                    "Mi",
+                    "Shu",
+                    "Ha",
+                    "Ala",
+                    "A",
+                    "Da",
+                    "Bi",
+                    "Ta",
+                    "Te",
+                    "Tu",
+                    "Sa",
+                    "Du",
+                    "Na",
+                    "She",
+                    "Sha",
+                    "Eka",
+                    "Ki",
+                    "I",
+                    "Su",
+                    "Qa"
+                };
+
+        private static readonly string[]
+            NameInfixes =
+                new string[] {
+                    "rche",
+                    "ga",
+                    "rva",
+                    "mri",
+                    "azo",
+                    "arra",
+                    "ili",
+                    "ba",
+                    "gga",
+                    "rqa",
+                    "rqu",
+                    "by",
+                    "rsi",
+                    "ra",
+                    "ne"
+                };
+
+        private static readonly string[]
+            NamePostfixes =
+                new string[] {
+                    "ppur",
+                    "ppar",
+                    "ppir",
+                    "sh",
+                    "d",
+                    "mish",
+                    "kh",
+                    "mur",
+                    "bal",
+                    "mas",
+                    "zor",
+                    "mor",
+                    "nip",
+                    "lep",
+                    "pad",
+                    "kesh",
+                    "war",
+                    "tum",
+                    "mmu",
+                    "mrod",
+                    "shur",
+                    "nna",
+                    "kish",
+                    "ruk",
+                    "r",
+                    "ppa",
+                    "wan",
+                    "shan",
+                    "tara",
+                    "vah",
+                    "vuh",
+                    "lil"
+                };
 
         /// <summary>
         /// Custom name generator. Very similar to QudHistoryFactory.NameRuinsSite but uses some custom prefixes
@@ -34,7 +103,18 @@ namespace QudUX.Utilities
         public static string GenerateName()
         {
             string text;
-            text = NameMaker.MakeName(null, null, null, null, "Qudish", null, null, null, "Site");
+            text =
+                NameMaker
+                    .MakeName(null,
+                    null,
+                    null,
+                    null,
+                    "Qudish",
+                    null,
+                    null,
+                    null,
+                    null,
+                    "Site");
 
             int chance = 50;
             if (chance.in100())
@@ -43,66 +123,100 @@ namespace QudUX.Utilities
                 switch (num)
                 {
                     case 0:
-                        text += " Schism"; break;
+                        text += " Schism";
+                        break;
                     case 1:
-                        text = "the Sliver of " + text; break;
+                        text = "the Sliver of " + text;
+                        break;
                     case 2:
-                        text = "the Glyph at " + text; break;
+                        text = "the Glyph at " + text;
+                        break;
                     case 3:
-                        text += " Roof"; break;
+                        text += " Roof";
+                        break;
                     case 4:
-                        text += " Fist"; break;
+                        text += " Fist";
+                        break;
                     case 5:
-                        text = "Ethereal " + text; break;
+                        text = "Ethereal " + text;
+                        break;
                     case 6:
-                        text = "Aged " + text; break;
+                        text = "Aged " + text;
+                        break;
                     case 7:
-                        text += " Sluice"; break;
+                        text += " Sluice";
+                        break;
                     case 8:
-                        text += " Aperture"; break;
+                        text += " Aperture";
+                        break;
                     case 9:
-                        text += " Disc"; break;
+                        text += " Disc";
+                        break;
                     case 10:
-                        text += " Clearing"; break;
+                        text += " Clearing";
+                        break;
                     case 11:
-                        text += " Pass"; break;
+                        text += " Pass";
+                        break;
                     case 12:
-                        text += " Seam"; break;
+                        text += " Seam";
+                        break;
                     case 13:
-                        text += " Twinge"; break;
+                        text += " Twinge";
+                        break;
                     case 14:
-                        text += " Grist"; break;
+                        text += " Grist";
+                        break;
                     case 15:
-                        text = "Dilapidated " + text; break;
+                        text = "Dilapidated " + text;
+                        break;
                     case 16:
-                        text = "Forgotten " + text; break;
+                        text = "Forgotten " + text;
+                        break;
                     case 17:
-                        text = "Crumbling " + text; break;
+                        text = "Crumbling " + text;
+                        break;
                     case 18:
-                        text = "Tangential " + text; break;
+                        text = "Tangential " + text;
+                        break;
                     case 19:
-                        text += " Vents"; break;
+                        text += " Vents";
+                        break;
                     case 20:
-                        text += " Lookabout"; break;
+                        text += " Lookabout";
+                        break;
                     case 21:
-                        text += " Furrow"; break;
+                        text += " Furrow";
+                        break;
                     case 22:
-                        text = "Distasteful " + text; break;
+                        text = "Distasteful " + text;
+                        break;
                 }
             }
             return text;
         }
 
-        public static bool FrozenZoneDataExists(string zoneID) //Unfortunately need this function because ZoneManager.FrozenZones is private
+        public static bool
+        FrozenZoneDataExists(string zoneID) //Unfortunately need this function because ZoneManager.FrozenZones is private
         {
             try
             {
-                string compressedZoneFile = Path.Combine(Path.Combine(XRLCore.Core.Game.GetCacheDirectory(), "ZoneCache"), zoneID + ".zone.gz");
+                string compressedZoneFile =
+                    Path
+                        .Combine(Path
+                            .Combine(XRLCore.Core.Game.GetCacheDirectory(),
+                            "ZoneCache"),
+                        zoneID + ".zone.gz");
                 if (File.Exists(compressedZoneFile))
                 {
                     return true;
                 }
-                string pureZoneFile = Path.Combine(Path.Combine(XRLCore.Core.Game.GetCacheDirectory(), "ZoneCache"), zoneID + ".zone");
+                string pureZoneFile =
+                    Path
+                        .Combine(Path
+                            .Combine(XRLCore.Core.Game.GetCacheDirectory(),
+                            "ZoneCache"),
+                        zoneID + ".zone");
                 if (File.Exists(pureZoneFile))
                 {
                     return true;

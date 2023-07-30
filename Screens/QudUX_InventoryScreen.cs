@@ -24,8 +24,6 @@ namespace XRL.UI
         static Dictionary<string, QudUX_InventoryCategory> CategoryList = new Dictionary<string, QudUX_InventoryCategory>();
         static List<GameObject> SortList;
         static List<string> Categories = new List<string>();
-        public static SortGODisplayName displayNameSorter = new SortGODisplayName();
-        public static SortGOCategory categorySorter = new SortGOCategory();
 
         static int StartObject = 0;
         static int CategorySort = 0;
@@ -57,11 +55,10 @@ namespace XRL.UI
 
         public static void ResetNameCache(GameObject GO)
         {
-            Inventory pInventory = GO.GetPart("Inventory") as Inventory;
-            List<GameObject> GOs = pInventory.GetObjectsDirect();
-            for (int x = 0; x < GOs.Count; x++)
+            List<GameObject> objectsDirect = GO.Inventory.GetObjectsDirect();
+            for (int i = 0; i < objectsDirect.Count; i++)
             {
-                GOs[x].ResetNameCache();
+                objectsDirect[i].ResetNameCache();
             }
         }
 
@@ -69,7 +66,8 @@ namespace XRL.UI
         {
             QudUX_InventoryScreenState SavedInventoryState = GO.RequirePart<QudUX_InventoryScreenState>();
             //TabController.RecalculateWeights(GO);
-            Inventory pInventory = GO.GetPart("Inventory") as Inventory;
+            // Inventory pInventory = GO.GetPart("Inventory") as Inventory;
+            Inventory inventory = GO.Inventory;
             CategoryMap.Clear();
             SelectionList.Clear();
             ItemsSkippedByFilter = 0;
@@ -81,7 +79,7 @@ namespace XRL.UI
                 Categories.Add("Category");
             }
 
-            List<GameObject> Objs = pInventory.GetObjectsDirect();
+            List<GameObject> Objs = inventory.GetObjectsDirect();
             for (int x = 0; x < Objs.Count; x++)
             {
                 GameObject Obj = Objs[x];
@@ -89,7 +87,7 @@ namespace XRL.UI
                 {
 
                     string iCategory = Obj.GetInventoryCategory();
-                    if (bIsFiltered && !Obj.GetCachedDisplayNameStripped().Contains(FilterString, CompareOptions.IgnoreCase))
+                    if (bIsFiltered && !Obj.GetCachedDisplayNameForSort().Contains(FilterString, CompareOptions.IgnoreCase))
                     {
                         ItemsSkippedByFilter++;
                         continue;
@@ -123,7 +121,7 @@ namespace XRL.UI
 
             foreach (List<GameObject> MapList in CategoryMap.Values)
             {
-                MapList.Sort(displayNameSorter);
+                MapList.Sort((GameObject a, GameObject b) => a.SortVs(b, null, UseCategory: false));
             }
 
             while (CategorySort >= Categories.Count)
@@ -132,14 +130,14 @@ namespace XRL.UI
             }
             if (CategorySort == -1)
             {
-                SortList = pInventory.GetObjects();
-                SortList.Sort(displayNameSorter);
+                SortList = inventory.GetObjects();
+                SortList.Sort((GameObject a, GameObject b) => a.SortVs(b, null, UseCategory: false));
             }
             else
             if (Categories[CategorySort] == "Category")
             {
-                SortList = pInventory.GetObjects();
-                SortList.Sort(categorySorter);
+                SortList = inventory.GetObjects();
+                SortList.Sort((GameObject a, GameObject b) => a.SortVs(b));
             }
             else
             {
@@ -147,7 +145,7 @@ namespace XRL.UI
                 {
                     SortList = CategoryMap[Categories[CategorySort]];
                 }
-                SortList.Sort(displayNameSorter);
+                SortList.Sort((GameObject a, GameObject b) => a.SortVs(b, null, UseCategory: false));
             }
 
             int nEntries = 0;
@@ -238,7 +236,7 @@ namespace XRL.UI
             }
             else
             {
-                if (pInventory != null)
+                if (inventory != null)
                 {
                     int nObject = 0;
 

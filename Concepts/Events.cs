@@ -14,10 +14,10 @@ namespace QudUX.Concepts
         //Event fired on new character just before embarking. This event occurs later than PlayerMutator
         //which allows doing certain things that would otherwise be impossible, like setting the player's
         //Tile. Normally player tile is overwritten by XRLCore after PlayerMutator runs.
-        public static void EmbarkEvent()
-        {
-            CreateCharacterExtender.ApplyTileInfoDeferred();
-        }
+        // public static void EmbarkEvent()
+        // {
+        //     CreateCharacterExtender.ApplyTileInfoDeferred();
+        // }
 
         //Runs immediately after a save is loaded.
         public static void SaveLoadEvent()
