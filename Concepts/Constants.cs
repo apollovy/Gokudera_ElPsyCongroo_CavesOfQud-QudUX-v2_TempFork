@@ -35,7 +35,8 @@ namespace QudUX.Concepts
             {
                 if (string.IsNullOrEmpty(_modDirectory))
                 {
-                    _modDirectory = ModManager.GetMod("QudUX")?.Path;
+                    _modDirectory = ModManager.GetMod("QudUX_fork")?.Path;
+                    XRL.Messages.MessageQueue.AddPlayerMessage("mod directory:", _modDirectory);
                 }
                 return _modDirectory;
             }
@@ -51,8 +52,12 @@ namespace QudUX.Concepts
                 if (_SpriteManagerInfoMap == null)
                 {
                     Type t = typeof(GameObject).Assembly.GetType("Kobold.SpriteManager");
-                    FieldInfo infoMapField = t.GetField("InfoMap", BindingFlags.Static | BindingFlags.NonPublic);
-                    _SpriteManagerInfoMap = infoMapField.GetValue(null) as Dictionary<string, exTextureInfo>;
+                    FieldInfo infoMapField = t.GetField(
+                        "InfoMap",
+                        BindingFlags.Static | BindingFlags.NonPublic
+                    );
+                    _SpriteManagerInfoMap =
+                        infoMapField.GetValue(null) as Dictionary<string, exTextureInfo>;
                 }
                 return _SpriteManagerInfoMap;
             }
@@ -65,12 +70,17 @@ namespace QudUX.Concepts
                 get
                 {
                     ConstructorInfo ret = null;
-                    List<ConstructorInfo> ctorsFromTextBlock = GetDeclaredConstructors(typeof(TextBlock));
+                    List<ConstructorInfo> ctorsFromTextBlock = GetDeclaredConstructors(
+                        typeof(TextBlock)
+                    );
                     foreach (ConstructorInfo ctor in ctorsFromTextBlock)
                     {
                         ret = ctor;
                         ParameterInfo[] argumentTypes = ctor.GetParameters();
-                        if (argumentTypes.Length > 0 && argumentTypes[0].ParameterType == typeof(string))
+                        if (
+                            argumentTypes.Length > 0
+                            && argumentTypes[0].ParameterType == typeof(string)
+                        )
                         {
                             return ret;
                         }
@@ -88,7 +98,13 @@ namespace QudUX.Concepts
             }
             public static MethodInfo List_AbilityNode_get_Item
             {
-                get { return typeof(List<AbilityNode>).GetMethod("get_Item", new Type[] { typeof(int) }); }
+                get
+                {
+                    return typeof(List<AbilityNode>).GetMethod(
+                        "get_Item",
+                        new Type[] { typeof(int) }
+                    );
+                }
             }
             public static MethodInfo List_GameObjectBlueprint_get_Count
             {
@@ -101,7 +117,10 @@ namespace QudUX.Concepts
             public static MethodInfo GameObject_HasSkill
             {
                 //get { return GetMethodInfo((GameObject g) => g.HasSkill(default(string))); }
-                get { return typeof(GameObject).GetMethod("HasSkill", new Type[] { typeof(string) }); }
+                get
+                {
+                    return typeof(GameObject).GetMethod("HasSkill", new Type[] { typeof(string) });
+                }
             }
             public static MethodInfo Popup_ShowOptionList
             {
@@ -109,23 +128,61 @@ namespace QudUX.Concepts
             }
             public static MethodInfo QudUX_IngredientSelectionScreen_Static_Show
             {
-                get { return GetMethodInfo(() => QudUX_IngredientSelectionScreen.Static_Show(default(List<GameObject>), default(List<bool>))); }
+                get
+                {
+                    return GetMethodInfo(
+                        () =>
+                            QudUX_IngredientSelectionScreen.Static_Show(
+                                default(List<GameObject>),
+                                default(List<bool>)
+                            )
+                    );
+                }
             }
             public static MethodInfo QudUX_RecipeSelectionScreen_Static_Show
             {
-                get { return GetMethodInfo(() => QudUX_RecipeSelectionScreen.Static_Show(default(List<Tuple<string, CookingRecipe>>))); }
+                get
+                {
+                    return GetMethodInfo(
+                        () =>
+                            QudUX_RecipeSelectionScreen.Static_Show(
+                                default(List<Tuple<string, CookingRecipe>>)
+                            )
+                    );
+                }
             }
             public static MethodInfo ScreenBuffer_Write
             {
-                get { return typeof(ScreenBuffer).GetMethod("Write", new Type[] { typeof(string), typeof(bool), typeof(bool), typeof(bool) }); }
+                get
+                {
+                    return typeof(ScreenBuffer).GetMethod(
+                        "Write",
+                        new Type[] { typeof(string), typeof(bool), typeof(bool), typeof(bool) }
+                    );
+                }
             }
             public static MethodInfo ScreenBuffer_WriteAt
             {
-                get { return typeof(ScreenBuffer).GetMethod("WriteAt", new Type[] { typeof(int), typeof(int), typeof(string), typeof(bool) }); }
+                get
+                {
+                    return typeof(ScreenBuffer).GetMethod(
+                        "WriteAt",
+                        new Type[] { typeof(int), typeof(int), typeof(string), typeof(bool) }
+                    );
+                }
             }
             public static MethodInfo ConversationUIExtender_DrawConversationSpeakerTile
             {
-                get { return GetMethodInfo(() => ConversationUIExtender.DrawConversationSpeakerTile(default(ScreenBuffer), default(GameObject))); }
+                get
+                {
+                    return GetMethodInfo(
+                        () =>
+                            ConversationUIExtender.DrawConversationSpeakerTile(
+                                default(ScreenBuffer),
+                                default(GameObject)
+                            )
+                    );
+                }
             }
             public static MethodInfo GameObject_RemoveFromContext
             {
@@ -133,23 +190,52 @@ namespace QudUX.Concepts
             }
             public static MethodInfo Stat_Random
             {
-                get { return GetMethodInfo(() => XRL.Rules.Stat.Random(default(int), default(int))); }
+                get
+                {
+                    return GetMethodInfo(() => XRL.Rules.Stat.Random(default(int), default(int)));
+                }
             }
             public static MethodInfo MessageQueue_AddPlayerMessage
             {
-                get { return typeof(MessageQueue).GetMethod("AddPlayerMessage", new Type[] { typeof(string), typeof(string), typeof(bool) }); }
+                get
+                {
+                    return typeof(MessageQueue).GetMethod(
+                        "AddPlayerMessage",
+                        new Type[] { typeof(string), typeof(string), typeof(bool) }
+                    );
+                }
             }
             public static MethodInfo ParticleTextMaker_EmitFromPlayer
             {
-                get { return GetMethodInfo(() => ParticleTextMaker.EmitFromPlayer(default(string))); }
+                get
+                {
+                    return GetMethodInfo(() => ParticleTextMaker.EmitFromPlayer(default(string)));
+                }
             }
             public static MethodInfo ParticleTextMaker_EmitFromPlayerIfLiquid
             {
-                get { return GetMethodInfo(() => ParticleTextMaker.EmitFromPlayerIfLiquid(default(GameObject), default(bool))); }
+                get
+                {
+                    return GetMethodInfo(
+                        () =>
+                            ParticleTextMaker.EmitFromPlayerIfLiquid(
+                                default(GameObject),
+                                default(bool)
+                            )
+                    );
+                }
             }
             public static MethodInfo ParticleTextMaker_EmitFromPlayerIfBarrierInDifferentZone
             {
-                get { return GetMethodInfo(() => ParticleTextMaker.EmitFromPlayerIfBarrierInDifferentZone(default(GameObject))); }
+                get
+                {
+                    return GetMethodInfo(
+                        () =>
+                            ParticleTextMaker.EmitFromPlayerIfBarrierInDifferentZone(
+                                default(GameObject)
+                            )
+                    );
+                }
             }
             public static MethodInfo IPart_get_ParentObject //XRL.World.GameObject XRL.World.IPart::get_ParentObject()
             {
@@ -157,7 +243,13 @@ namespace QudUX.Concepts
             }
             public static MethodInfo IComponent_GameObject_AddPlayerMessage
             {
-                get { return typeof(IComponent<GameObject>).GetMethod("AddPlayerMessage", new Type[] { typeof(string), typeof(string), typeof(bool) }); }
+                get
+                {
+                    return typeof(IComponent<GameObject>).GetMethod(
+                        "AddPlayerMessage",
+                        new Type[] { typeof(string), typeof(string), typeof(bool) }
+                    );
+                }
             }
             public static MethodInfo Cell_HasBridge
             {
@@ -191,6 +283,7 @@ namespace QudUX.Concepts
             {
                 get { return typeof(Popup).GetMethod("ShowConversation"); }
             }
+
             //public static MethodInfo CreateCharacter_BuildLibraryManagement
             //{
             //    get { return typeof(CreateCharacter).GetMethod("BuildLibraryManagement"); }
@@ -218,15 +311,38 @@ namespace QudUX.Concepts
             }
             public static MethodInfo LookExtender_AddMarkLegendaryOptionToLooker
             {
-                get { return GetMethodInfo(() => LookExtender.AddMarkLegendaryOptionToLooker(default(ScreenBuffer), default(GameObject), default(string))); }
+                get
+                {
+                    return GetMethodInfo(
+                        () =>
+                            LookExtender.AddMarkLegendaryOptionToLooker(
+                                default(ScreenBuffer),
+                                default(GameObject),
+                                default(string)
+                            )
+                    );
+                }
             }
             public static MethodInfo LookExtender_CheckKeyPress
             {
-                get { return GetMethodInfo(() => LookExtender.CheckKeyPress(default(Keys), default(GameObject), default(bool))); }
+                get
+                {
+                    return GetMethodInfo(
+                        () =>
+                            LookExtender.CheckKeyPress(
+                                default(Keys),
+                                default(GameObject),
+                                default(bool)
+                            )
+                    );
+                }
             }
             public static MethodInfo EnhancedScoreboardExtender_ShowGameStatsScreen
             {
-                get { return GetMethodInfo(() => EnhancedScoreboardExtender.ShowGameStatsScreen()); }
+                get
+                {
+                    return GetMethodInfo(() => EnhancedScoreboardExtender.ShowGameStatsScreen());
+                }
             }
             public static FieldInfo AbilityNode_Ability
             {
@@ -244,6 +360,7 @@ namespace QudUX.Concepts
             {
                 get { return typeof(ConversationUI).GetField("_TextConsole"); }
             }
+
             //public static FieldInfo CreateCharacter__Console
             //{
             //    get { return DeclaredField(typeof(CreateCharacter), "_Console"); }
